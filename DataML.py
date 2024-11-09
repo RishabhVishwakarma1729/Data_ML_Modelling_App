@@ -74,12 +74,14 @@ if st.checkbox("Show Dataset Info"):
     st.write("Preprocessed Data:")
     st.write(data.head())
 
-    # Feature and target selection
-    feature_columns = st.multiselect("Select Feature Columns", [col for col in data.columns if col != target_column])
-    target_column = st.selectbox("Select Target Column", data.columns)
-    X = data[feature_columns]
-    y = data[target_column]
+   # Option to choose target column
+target_column = st.selectbox("Select Target Column", data.columns)
 
+# Option to choose feature columns, excluding the target column
+feature_columns = st.multiselect(
+    "Select Feature Columns",
+    [col for col in data.columns if col != target_column]
+)
     # Model type selection
     model_type = st.selectbox("Choose a Model Type", ["Regression", "Classification"])
 
