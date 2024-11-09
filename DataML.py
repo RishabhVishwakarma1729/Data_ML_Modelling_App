@@ -14,6 +14,7 @@ from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, mean_squared_error, r2_score, confusion_matrix, ConfusionMatrixDisplay
+import io
 
 st.title("Machine Learning App with Regression and Classification")
 
@@ -26,10 +27,13 @@ if uploaded_file:
         data = pd.read_csv(uploaded_file)
     else:
         data = pd.read_excel(uploaded_file)
-    
-    # Show dataset info
-    if st.checkbox("Show Dataset Info"):
-        st.write(data.info())
+
+# Show dataset info
+if st.checkbox("Show Dataset Info"):
+    buffer = io.StringIO()
+    data.info(buf=buffer)
+    s = buffer.getvalue()
+    st.text(s)
     
     # Show number of null values
     if st.checkbox("Show Null Values Count"):
@@ -162,3 +166,6 @@ if uploaded_file:
             st.pyplot(plt)
 
 # This code provides all the requested visualizations based on the selected algorithm.
+
+    
+
